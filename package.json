@@ -10,23 +10,21 @@
     "test_build": "vue-cli-service build --morden --mode test",
     "beta_build": "vue-cli-service build --morden --mode beta",
     "build": "vue-cli-service build --morden",
+    "lint-fix": "vue-cli-service lint --fix ./src --ext .vue,.js,.ts",
     "prepare": "husky install",
-    "lint": "vue-cli-service lint ./src --ext .vue,.js,.ts",
-    "lint-fix": "vue-cli-service lint --fix ./src --ext .vue,.js,.ts"
+    "commit": "git-cz"
   },
   "dependencies": {
-    "qs": "^6.11.0",
-    "element-plus": "^2.2.9",
-    "vue": "^3.2.37",
-    "vue-router": "^4.1.2",
+    "vue": "^3.2.39",
+    "vue-router": "^4.1.5",
     "vuex": "^4.0.2",
     "axios": "^0.27.2",
+    "element-plus": "^2.2.9",
     "crypto-js": "^4.1.1"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",
     "@types/node": "^18.0.4",
-    "@types/qs": "^6.9.7",
     "@types/webpack-env": "^1.16.3",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",

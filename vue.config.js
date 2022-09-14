@@ -43,7 +43,7 @@ module.exports = {
   configureWebpack: {
     devServer: {
       open: true,
-      port: 2222,
+      port: 8888,
       host: 'localhost',
       proxy: {
         '/api': {
@@ -88,13 +88,6 @@ module.exports = {
     cache: env !== 'dev' ? false : { type: 'filesystem' }, // 仅在本地环境启用缓存
     optimization: {
       nodeEnv: false // 不自动生成env文件
-    }
-  },
-  css: {
-    loaderOptions: {
-      sass: {
-        prependData: '@use "@/themes/element-variables.scss" as *;'
-      }
     }
   }
 }

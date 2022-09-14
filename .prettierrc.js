@@ -9,5 +9,5 @@ module.exports = {
   trailingComma: 'none', // 对象最后一项默认格式化会加逗号
   arrowParens: 'avoid', // 箭头函数参数括号 默认avoid 可选 avoid(能省略括号的时候就省略)| always(总是有括号)
   bracketSpacing: true, // 对象中的空格 默认true{ foo: bar } false:{foo: bar}
-  printWidth: 100 // 一行多长，超过的会换行
+  printWidth: 150 // 一行多长，超过的会换行
 }

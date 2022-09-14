@@ -1,5 +1,5 @@
 <template>
-  <div class="iot_pagination">
+  <div class="pdd_pagination">
     <el-pagination
       layout="total, sizes, prev, pager, next"
       :page-sizes="[10, 20, 50]"
@@ -27,7 +27,7 @@ interface IPropList {
 }
 
 export default defineComponent({
-  name: 'PaginationComponent',
+  name: 'paginationComponent',
   props: {
     options: {
       default: () => ({
@@ -103,7 +103,7 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.iot_pagination {
+.pdd_pagination {
   padding-top: 20px;
   display: flex;
   align-items: center;

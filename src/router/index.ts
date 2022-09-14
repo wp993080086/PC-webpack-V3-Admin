@@ -1,11 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {
-  createRouter,
-  createWebHistory,
-  RouteLocationNormalized,
-  RouteLocationNormalizedLoaded,
-  RouteRecordRaw
-} from 'vue-router'
+import { createRouter, createWebHistory, RouteLocationNormalized, RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
 
 type ScrollPositionNormalized = {
   behavior?: ScrollOptions['behavior']
@@ -34,11 +28,7 @@ for (const key in files) {
 const routerInstance = createRouter({
   history: createWebHistory(),
   routes: allRouters,
-  scrollBehavior(
-    to: RouteLocationNormalized,
-    _: RouteLocationNormalizedLoaded,
-    savedPosition: ScrollPositionNormalized | null
-  ) {
+  scrollBehavior(to: RouteLocationNormalized, _: RouteLocationNormalizedLoaded, savedPosition: ScrollPositionNormalized | null) {
     if ((to.meta.savedPosition as boolean) && savedPosition) {
       return savedPosition
     }
@@ -49,11 +39,11 @@ const routerInstance = createRouter({
   }
 })
 
-// routerInstance.beforeEach((to, _, next) => {
-//   if (to.meta) {
-//     document.title = (to.meta.title as string) || ''
-//   }
-//   next()
-// })
+routerInstance.beforeEach((to, _, next) => {
+  if (to.meta) {
+    document.title = `${to.meta.title} - admin`
+  }
+  next()
+})
 
 export default routerInstance

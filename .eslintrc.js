@@ -41,6 +41,7 @@ module.exports = {
       { varsIgnorePattern: '.*', args: 'none' }
     ],
     camelcase: 1, // 驼峰命名
+    'max-len': ['error', { code: 150 }], // 不能超过150行
     'prettier/prettier': 0, // 会优先采用prettierrc.json的配置，不符合规则会提示错误
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

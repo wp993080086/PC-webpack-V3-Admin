@@ -39,3 +39,14 @@ export const httpCode = [
   { code: 504, message: '504：服务器作为网关或代理，未及时从远端服务器获取请求' },
   { code: 505, message: '505：服务器不支持请求的HTTP协议版本' }
 ]
+
+export const commonTheme = {
+  title: 'P-Admin',
+  primary: '#409EFF',
+  success: '#67C23A',
+  warning: '#E6A23C',
+  danger: '#F56C6C',
+  info: '#909399',
+  text: '#303133',
+  i18n: 'zhCn'
+}

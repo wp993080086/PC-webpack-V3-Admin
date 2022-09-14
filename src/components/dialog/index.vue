@@ -1,7 +1,6 @@
 <template>
-  <slot name="reference" :hide="hide" :show="show" :buttonList="buttonList"></slot>
   <el-dialog
-    :custom-class="customClass"
+    :class="customClass"
     v-model="innerVisible"
     @open="handleDialogOpen"
     :close-on-click-modal="false"
@@ -9,29 +8,21 @@
     v-bind="$attrs"
   >
     <template #header>
-      <span class="title-icon" v-if="titleIcon">
-        <el-popover placement="bottom" trigger="hover">
-          <template #reference>
-            <i :class="titleIcon"></i>
-          </template>
-          <slot name="title-tip"></slot>
-        </el-popover>
-      </span>
-      <span>{{ title }}</span>
+      <span class="pdd_dialog_title">{{ title }}</span>
+      <slot name="head"></slot>
     </template>
-    <div class="iot_dialog-content" v-loading="contentLoading">
-      <slot :hide="hide" :show="show" :buttonList="buttonList"></slot>
+    <div class="pdd_dialog_content" v-loading="contentLoading">
+      <slot></slot>
     </div>
     <template v-if="!contentLoading" #footer>
-      <slot name="footer" v-if="$slots.footer" :hide="hide" :show="show" :buttonList="buttonList" />
+      <slot name="footer" v-if="$slots.footer" />
       <template v-else>
         <el-button
-          v-for="button in buttonList"
+          v-for="button in btnList"
           :key="button.key"
           :type="button.type"
           :loading="button.isLoading"
           :disabled="button.disabled"
-          size="default"
           @click="handleButtonClick(button)"
         >
           {{ button.label }}
@@ -43,77 +34,31 @@
 
 <script lang="ts">
 import { defineComponent, ref, PropType, onMounted, watch, reactive } from 'vue'
-
-export const deepCopy = (val: TAny) => {
-  if (val) {
-    return JSON.parse(JSON.stringify(val))
-  }
-  return val
-}
-
-type TButtonItem = Partial<{
-  type: string
-  plain: boolean
-  size: string
-  isLoading: boolean
-  key: string
-  disabled: boolean
-  manualClose: boolean // 手动关闭dialog
-  async: boolean // 点击自动loading
-  label: string
-}>
-
-type TBtnEnum = 'OK' | 'OK_CANCEL' | 'CLOSE' | 'OK_CLOSE' | 'OK_CANCEL_CLOSE'
-
-const btnOK = {
-  label: '确定',
-  key: 'ok',
-  type: 'primary'
-}
-const btnCancel = {
-  label: '取消',
-  key: 'cancel',
-  type: 'plain'
-}
-const btnClose = {
-  label: '关闭',
-  key: 'cancel',
-  type: 'plain'
-}
-
-const btnEnum = {
-  OK: [btnOK],
-  OK_CANCEL: [btnCancel, btnOK],
-  CLOSE: [btnClose],
-  OK_CLOSE: [btnClose, btnOK],
-  OK_CANCEL_CLOSE: [btnClose, btnCancel, btnOK]
-}
+import { TDialogButtonOption } from '@/types/common'
 
 export default defineComponent({
-  name: '-dialog',
+  name: 'dialogComponent',
   inheritAttrs: false,
-  emits: ['open', 'close', 'update:visible', 'button-click'],
+  emits: ['open', 'close', 'update:visible', 'btn-click'],
   props: {
     visible: {
       type: Boolean,
-      // required: true
+      required: true,
       default: false
     },
     size: {
       type: String,
       default: 'default'
     },
-    title: String,
-    titleIcon: String,
-    btnEnum: {
-      // 使用枚举按钮
-      type: String as PropType<TBtnEnum>
+    title: {
+      type: String,
+      default: '温馨提示'
     },
     buttons: {
-      type: Array as PropType<Array<TButtonItem>>,
+      type: Array as PropType<Array<TDialogButtonOption>>,
       default: () => [
         { label: '取消', key: 'no' },
-        { label: '确定', key: 'ok', manualClose: true, async: true }
+        { label: '确定', key: 'yes', manualClose: true, async: true }
       ]
     },
     contentLoading: {
@@ -122,46 +67,33 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    const customClass = ref(`iot_dialog iot_dialog--${props.size}`)
+    const customClass = ref(`pdd_dialog sagi_dialog_${props.size}`)
     const innerVisible = ref(props.visible)
-    const buttonList = reactive<Array<TButtonItem>>([])
+    const btnList = reactive<Array<TDialogButtonOption>>([])
     const initButtons = () => {
-      buttonList.length = 0
-      const enumBtns = props.btnEnum ? btnEnum[props.btnEnum] : null
-      const bts: Array<TButtonItem> = enumBtns || deepCopy(props.buttons)
-      for (const button of bts) {
-        if (button.label === '确定') button.type = 'primary'
-        buttonList.push(button)
+      btnList.length = 0
+      const btns: Array<TDialogButtonOption> = JSON.parse(JSON.stringify(props.buttons))
+      for (const button of btns) {
+        if (button.key === 'yes') button.type = 'primary'
+        btnList.push(button)
       }
     }
+    // 挂载完毕
     onMounted(() => {
       initButtons()
     })
-
-    const hide = () => {
-      innerVisible.value = false
-    }
-
-    const show = () => {
-      innerVisible.value = true
-    }
-
+    // 打开dialog
     const handleDialogOpen = () => {
       emit('open')
     }
-
-    const handleButtonClick = (button: TButtonItem) => {
-      emit(
-        'button-click',
-        button.key,
-        button,
-        () => {
-          innerVisible.value = false
-        },
-        buttonList
-      )
+    // 按钮点击
+    const handleButtonClick = (button: TDialogButtonOption) => {
+      const callback = () => {
+        innerVisible.value = false
+      }
+      emit('btn-click', button, callback, btnList)
       if (button.async) {
-        buttonList.forEach(item => {
+        btnList.forEach(item => {
           if (item.key === button.key) {
             item.isLoading = true
           }
@@ -182,32 +114,28 @@ export default defineComponent({
       if (!val) {
         emit('update:visible', false)
       } else {
-        for (const item of buttonList) {
+        for (const item of btnList) {
           item.isLoading = false
         }
       }
     })
     return {
       customClass,
-      buttonList,
+      btnList,
       handleDialogOpen,
       innerVisible,
-      handleButtonClick,
-      hide,
-      show
+      handleButtonClick
     }
   }
 })
 </script>
 <style lang="scss">
-$c: #456fe7;
-.iot_dialog {
-  $br: 6px;
-  border-radius: $br !important;
+.pdd_dialog {
+  border-radius: 6px !important;
   width: 50%;
   min-width: 600px;
   max-width: 800px;
-  &.iot_dialog--large {
+  &.sagi_dialog_large {
     width: 65%;
     max-width: 1000px;
     min-width: 800px;
@@ -220,7 +148,7 @@ $c: #456fe7;
       }
     }
   }
-  &.iot_dialog--small {
+  &.sagi_dialog_small {
     width: 35%;
     min-width: 400px;
     max-width: 600px;
@@ -234,16 +162,13 @@ $c: #456fe7;
     }
   }
   .el-dialog__header {
-    $h: 50px;
-    background: $c;
-    color: #fff;
-    border-radius: $br $br 0 0;
-    height: $h;
-    text-align: center;
+    border-radius: 6px 6px 0 0;
+    height: 50px;
     padding: 0;
-    line-height: $h;
+    padding-left: 20px;
+    line-height: 50px;
     margin-right: 0 !important;
-    .title-icon {
+    .title_icon {
       position: absolute;
       left: 20px;
       top: 15px;
@@ -254,25 +179,14 @@ $c: #456fe7;
         opacity: 1;
       }
     }
-    .el-dialog__headerbtn {
-      top: 0px;
-      i {
-        color: #fff;
-        opacity: 0.6;
-        transition: 0.2s;
-        &:hover {
-          opacity: 1;
-        }
-      }
-    }
   }
   .el-dialog__footer {
-    text-align: center;
-    .el-button + .el-button {
-      margin-left: 40px;
-    }
+    text-align: right;
   }
-  .iot_dialog-content {
+  .pdd_dialog_title {
+    margin-right: 10px;
+  }
+  .pdd_dialog_content {
     min-height: 100px;
   }
 }
