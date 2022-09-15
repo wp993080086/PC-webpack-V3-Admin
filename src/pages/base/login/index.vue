@@ -106,7 +106,7 @@ const toSignin = () => false
 // 雪花
 const snowTimes = ref<ReturnType<typeof setTimeout>>()
 const startSnow = (src1: TAny, src2: TAny, num: number) => {
-  const snowArr: TAnyArray = []
+  const snowArr: TArray<TAny> = []
   for (let j = 0; j < num; j++) {
     snowArr.push(new CreateSnow('login_box', src1, src2))
   }
