@@ -1,5 +1,5 @@
 <template>
-  <div class="demo_box">
+  <div class="home_box">
     <span @click="to">{{ publicKey }}</span>
   </div>
 </template>
@@ -7,11 +7,11 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const publicKey = ref('demo')
+const publicKey = ref('首页')
 const router = useRouter()
 const to = () => {
   router.push({
-    name: 'home'
+    name: 'demo'
   })
 }
 </script>

@@ -1,15 +1,3 @@
-$text1: #303133;
-$text2: #606266;
-$text3: #909399;
-$text4: #c0c4cc;
-
-$white: #ffffff;
-$black: #000000;
-$red: #f56c6c;
-$green: #67c23a;
-$blue: #456fe7;
-$bg: #fafafa;
-
 // 单行超出省略号
 @mixin omit {
   overflow: hidden;
@@ -66,13 +54,4 @@ $bg: #fafafa;
   &:hover {
     box-shadow: 0 0 10px $color;
   }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }

@@ -50,11 +50,7 @@ export const throttle = <F extends TAnyFunc>(fn: F, limit = 200): IThrottleFunct
  * @param {Number} wait 触发间隔
  * @param {Number} immediate 是否立即触发一次
  */
-export const debounce = <F extends TAnyFunc>(
-  wait: number,
-  fn: F,
-  immediate = false
-): IDebounceFunction<F> => {
+export const debounce = <F extends TAnyFunc>(wait: number, fn: F, immediate = false): IDebounceFunction<F> => {
   let timeout: NodeJS.Timeout
   // eslint-disable-next-line func-names
   const debounced = function (this: ThisParameterType<F>, ...args: Parameters<F>) {
@@ -81,12 +77,7 @@ export const debounce = <F extends TAnyFunc>(
  * @param {String} event 事件名
  * @param {Function}} handler 回调
  */
-export const on = (
-  element: TGlobalDefaultType,
-  event: string,
-  handler: EventListenerOrEventListenerObject,
-  useCapture = false
-): void => {
+export const on = (element: TGlobalDefaultType, event: string, handler: EventListenerOrEventListenerObject, useCapture = false): void => {
   // console.log('addEventListener', event)
   if (element && event && handler) {
     element.addEventListener(event, handler, useCapture)
@@ -98,11 +89,7 @@ export const on = (
  * @param {String} event 事件名
  * @param {Function}} handler 回调
  */
-export const off = (
-  element: TGlobalDefaultType,
-  event: string,
-  handler: EventListenerOrEventListenerObject
-): void => {
+export const off = (element: TGlobalDefaultType, event: string, handler: EventListenerOrEventListenerObject): void => {
   if (element && event && handler) {
     element.removeEventListener(event, handler, false)
   }
@@ -169,11 +156,7 @@ export const deepClone = (sourceValue: TAny) => {
  * @param {Any} data 数据源
  * @param {String} type 存储类型 local || session
  */
-export const setStorage = (
-  key: string,
-  data: string | number | TAnyArray | TAnyType,
-  type: 'session' | 'local' = 'session'
-) => {
+export const setStorage = (key: string, data: string | number | TArray<TAny> | TAnyObject, type: 'session' | 'local' = 'session') => {
   const env = process.env.NODE_ENV as string
   if (type === 'session') {
     sessionStorage.setItem(`${key}_${env}`, JSON.stringify(data))
@@ -188,10 +171,7 @@ export const setStorage = (
  */
 export const getStorage = (key: string, type: 'session' | 'local' = 'session') => {
   const env = process.env.NODE_ENV as string
-  const target =
-    type === 'session'
-      ? sessionStorage.getItem(`${key}_${env}`)
-      : localStorage.getItem(`${key}_${env}`)
+  const target = type === 'session' ? sessionStorage.getItem(`${key}_${env}`) : localStorage.getItem(`${key}_${env}`)
   return target ? JSON.parse(target) : target
 }
 
@@ -200,18 +180,13 @@ export const getStorage = (key: string, type: 'session' | 'local' = 'session') =
  * @param {String} key 键 || 'all' || 键数组
  * @param {String} type 存储类型 local || session
  */
-export const deleteStorage = (
-  key: 'all' | string | string[],
-  type: 'session' | 'local' = 'session'
-) => {
+export const deleteStorage = (key: 'all' | string | string[], type: 'session' | 'local' = 'session') => {
   const env = process.env.NODE_ENV as string
   if (typeof key === 'string') {
     if (key === 'all') {
       type === 'session' ? sessionStorage.clear() : localStorage.clear()
     } else {
-      type === 'session'
-        ? sessionStorage.removeItem(`${key}_${env}`)
-        : localStorage.removeItem(`${key}_${env}`)
+      type === 'session' ? sessionStorage.removeItem(`${key}_${env}`) : localStorage.removeItem(`${key}_${env}`)
     }
   } else if (key.length > 0) {
     if (type === 'session') {

@@ -25,7 +25,7 @@ export default {
    * 登录
    * @param {String} key 要取消的接口名
    */
-  login(data: TAnyType) {
+  login(data: TAnyObject) {
     console.log(data)
     return R.post(
       '/api/login/cellphone',

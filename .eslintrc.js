@@ -9,11 +9,10 @@ module.exports = {
   },
   globals: {
     TAny: true,
-    TAnyType: true,
-    TAnyArray: true,
+    TArray: true,
     TAnyFunc: true,
-    TDictArray: true,
-    TDictObject: true
+    TDictObject: true,
+    TAnyObject: true
   },
   extends: ['plugin:vue/vue3-essential', 'airbnb-base', '@vue/typescript/recommended'],
   parserOptions: {
@@ -21,7 +20,7 @@ module.exports = {
     sourceType: 'module',
     parser: '@typescript-eslint/parser',
     ecmaFeatures: {
-      tsx: true, // Allows for the parsing of TSX
+      tsx: true, // 允许对TSX进行解析
       jsx: true,
     }
   },

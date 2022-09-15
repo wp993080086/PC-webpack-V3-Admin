@@ -1,50 +1,78 @@
 <template>
-  <!-- 有导航栏 -->
-  <template v-if="isShowHeader">
-    <div id="main">2222</div>
-  </template>
-  <!-- 无导航栏 -->
-  <template v-else>
-    <router-view />
-  </template>
+  <el-config-provider :locale="appState.language[nowLang]">
+    <!-- 有导航栏 -->
+    <template v-if="isShowHeader">
+      <div id="main">
+        <div id="main_left" :style="{ width: `${menuW}px` }">
+          <span @click="changeW">伸缩</span>
+        </div>
+        <div id="main_right">
+          <pdd-header />
+          <div id="container">
+            <el-scrollbar>
+              <router-view v-slot="{ Component }">
+                <Transition name="fade_enter" mode="out-in">
+                  <keep-alive :include="keepAliveNameList">
+                    <component :is="Component" :key="refreshRouterViewKey" />
+                  </keep-alive>
+                </Transition>
+              </router-view>
+            </el-scrollbar>
+          </div>
+        </div>
+      </div>
+    </template>
+    <!-- 无导航栏 -->
+    <template v-else>
+      <router-view />
+    </template>
+  </el-config-provider>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
-import { useStore } from 'vuex'
+<script lang="ts" setup>
+import { reactive, ref } from 'vue'
+import { ElConfigProvider } from 'element-plus'
+import zhCn from 'element-plus/lib/locale/lang/zh-cn'
+import zhTw from 'element-plus/lib/locale/lang/zh-tw'
+import en from 'element-plus/lib/locale/lang/en'
+import pddHeader from '@/components/header/index.vue'
 
-export default defineComponent({
-  setup() {
-    const Store = useStore()
-    const isShowHeader = ref(false)
-    // 如果有用户信息则取用
-    onMounted(() => {
-      const userInfo = sessionStorage.getItem('userInfo')
-      if (userInfo) {
-        Store.commit('userInfo/setUserInfo', JSON.parse(userInfo))
-      }
-    })
-
-    return {
-      isShowHeader
-    }
+const menuW = ref(60)
+const changeW = () => {
+  const w = menuW.value
+  w === 120 ? (menuW.value = 60) : (menuW.value = 120)
+}
+const isShowHeader = ref(true)
+const nowLang = ref('zhCn')
+const appState = reactive<TDictObject<TAnyObject>>({
+  language: {
+    zhCn,
+    zhTw,
+    en
   }
 })
+const refreshRouterViewKey = ref('')
+const keepAliveNameList = ref([])
 </script>
 
 <style lang="scss" scoped>
 #main {
+  display: flex;
   width: 100%;
   height: 100%;
-  #container {
-    display: flex;
-    background-color: #f4f7f9;
-    width: 100%;
-    height: calc(100% - 60px);
+  background-color: #f9f9f9;
+  #main_left {
+    height: 100%;
+    transition: ease 0.5s;
+    border-right: 1px solid #cccccc;
   }
-  #content {
+  #main_right {
     flex: 1;
-    overflow-y: auto;
+    height: 100%;
+    #container {
+      width: 100%;
+      height: calc(100% - 60px);
+    }
   }
 }
 </style>

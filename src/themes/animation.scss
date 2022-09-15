@@ -1,0 +1,209 @@
+
+/**
+* 左侧弹出
+*/
+@keyframes lightSpeedInLeft {
+  from {
+    transform: translate3d(-100%, 0, 0) skewX(30deg);
+    opacity: 0;
+  }
+
+  60% {
+    transform: skewX(-20deg);
+    opacity: 1;
+  }
+
+  80% {
+    transform: skewX(5deg);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+.ball_left-enter-active{
+  animation: lightSpeedInLeft 0.5s;
+  animation-timing-function: ease-out;
+}
+/**
+* 右侧弹出
+*/
+@keyframes lightSpeedInRight {
+  from {
+    transform: translate3d(100%, 0, 0) skewX(-30deg);
+    opacity: 0;
+  }
+
+  60% {
+    transform: skewX(20deg);
+    opacity: 1;
+  }
+
+  80% {
+    transform: skewX(-5deg);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+.ball_right-enter-active {
+  animation: lightSpeedInRight 0.5s;
+  animation-timing-function: ease-out;
+}
+/**
+* 左侧滑入
+*/
+@keyframes slideInLeft {
+  from {
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+.slide_left-enter-active {
+  animation: slideInLeft 0.5s;
+  animation-timing-function: ease-out;
+}
+/**
+* 右侧滑入
+*/
+@keyframes slideInRight {
+  from {
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+.slide_right-enter-active {
+  animation: slideInRight 0.5s;
+  animation-timing-function: ease-out;
+}
+/**
+* X翻转
+*/
+@keyframes flipInX {
+  from {
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  40% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    animation-timing-function: ease-in;
+  }
+
+  60% {
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    opacity: 1;
+  }
+
+  80% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+  }
+
+  to {
+    transform: perspective(400px);
+  }
+}
+.flip_x-enter-active {
+  animation: flipInX 0.5s;
+  animation-timing-function: ease-out;
+}
+/**
+* Y翻转
+*/
+@keyframes flipInY {
+  from {
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  40% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+    animation-timing-function: ease-in;
+  }
+
+  60% {
+    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+    opacity: 1;
+  }
+
+  80% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+  }
+
+  to {
+    transform: perspective(400px);
+  }
+}
+.flip_y-enter-active {
+  animation: flipInY 0.5s;
+  animation-timing-function: ease-out;
+}
+/**
+* 淡入淡出
+*/
+@keyframes fadeTo {
+  from {
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0.4;
+  }
+
+  60% {
+    opacity: 0.6;
+  }
+
+  80% {
+    opacity: 0.8;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+.fade_enter-enter-active {
+  animation: fadeTo 0.5s;
+  animation-timing-function: ease-out;
+}
+/**
+* 淡出
+*/
+@keyframes fadeFrom {
+  from {
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+
+  40% {
+    opacity: 0.8;
+  }
+
+  60% {
+    opacity: 0.6;
+  }
+
+  80% {
+    opacity: 0.4;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+.fade_leave-enter-active {
+  animation: fadeFrom 0.5s;
+  animation-timing-function: ease-out;
+}
