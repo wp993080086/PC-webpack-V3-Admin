@@ -147,25 +147,9 @@ export function getBeginLastMonth() {
  * 上月的最后一天时间
  */
 export function getEndLastMonth() {
-  // 获取当前时间
-  const currentDate = new Date()
-  // 获得当前月份0-11
-  let currentMonth = currentDate.getMonth()
-  // 获得当前年份4位年
-  let currentYear = currentDate.getFullYear()
-  // 当为12月的时候年份需要加1
-  // 月份需要更新为0 也就是下一年的第一个月
-  if (currentMonth === 11) {
-    currentYear++
-    currentMonth = 0 // 就为
-  } else {
-    // 否则只是月份增加,以便求的下一月的第一天
-    currentMonth++
-  }
   // 一天的毫秒数
   const millisecond = 1000 * 60 * 60 * 24
   // 求出上月的最后一天
   const lastDay = new Date(getBeginMonth().getTime() - millisecond)
-
   return endTime(lastDay)
 }

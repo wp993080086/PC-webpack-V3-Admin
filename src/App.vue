@@ -30,19 +30,30 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { ElConfigProvider } from 'element-plus'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import zhTw from 'element-plus/lib/locale/lang/zh-tw'
 import en from 'element-plus/lib/locale/lang/en'
 import pddHeader from '@/components/header/index.vue'
 
+const router = useRoute()
+// 切换侧边栏宽度
 const menuW = ref(60)
 const changeW = () => {
   const w = menuW.value
   w === 120 ? (menuW.value = 60) : (menuW.value = 120)
 }
-const isShowHeader = ref(true)
+// 是否显示头部导航栏
+const isShowHeader = ref(false)
+watch(
+  () => router.meta,
+  (newVal: TAnyObject) => {
+    isShowHeader.value = newVal.showHeader
+  }
+)
+// 切换语言
 const nowLang = ref('zhCn')
 const appState = reactive<TDictObject<TAnyObject>>({
   language: {
@@ -51,6 +62,7 @@ const appState = reactive<TDictObject<TAnyObject>>({
     en
   }
 })
+// keep-alive
 const refreshRouterViewKey = ref('')
 const keepAliveNameList = ref([])
 </script>

@@ -23,7 +23,7 @@
             </el-form-item>
             <el-form-item>
               <div class="login_btn">
-                <el-button type="primary" @click="submitForm">登录</el-button>
+                <el-button type="primary" @click="submitForm" v-loading="loginState.loading">登录</el-button>
               </div>
             </el-form-item>
           </el-form>
@@ -37,6 +37,7 @@
 </template>
 <script lang="ts" setup>
 import { reactive, onMounted, onUnmounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { ElForm } from 'element-plus'
 import CreateSnow from '@/utils/snowflake'
 import panda1 from '@/static/images/login/panda_1.png'
@@ -47,12 +48,13 @@ import snow2 from '@/static/images/login/snow2.png'
 import { Toast } from '@/utils/toast'
 import loginHttp from '@/servers/api/login'
 
-const loginFormRef = ref<InstanceType<typeof ElForm>>()
+const router = useRouter()
 // 登录信息
+const loginFormRef = ref<InstanceType<typeof ElForm>>()
 const loginState = reactive({
   info: {
-    phone: '',
-    password: ''
+    phone: 'admin',
+    password: '123456'
   },
   rules: {
     phone: [
@@ -68,7 +70,8 @@ const loginState = reactive({
   focus: 0,
   cookie: '',
   token: '',
-  userMsg: '' // 用户信息
+  userMsg: '', // 用户信息
+  loading: false
 })
 // 修改熊猫
 const handleChangePanda = (type: number) => {
@@ -77,18 +80,24 @@ const handleChangePanda = (type: number) => {
 // 登录成功
 const handleLoginSucceed = () => {
   Toast('登录成功，即将跳转', { type: 'success' })
+  loginState.loading = false
+  console.log(router)
+  // router.push({
+  //   name: 'home'
+  // })
 }
 // 登录
 const handleLogin = async () => {
+  loginState.loading = true
   try {
-    const res = await loginHttp.login(loginState.info)
+    const res = await loginHttp.login({
+      userName: loginState.info.phone,
+      password: loginState.info.password
+    })
     console.log(res)
-    // loginState.cookie = res.cookie
-    // document.cookie = res.cookie
-    // loginState.token = res.token
-    // loginState.userMsg = res.profile
     handleLoginSucceed()
   } catch (error) {
+    loginState.loading = false
     console.error(error)
   }
 }
@@ -100,9 +109,9 @@ const submitForm = () => {
     }
   })
 }
-
 // 去注册
 const toSignin = () => false
+
 // 雪花
 const snowTimes = ref<ReturnType<typeof setTimeout>>()
 const startSnow = (src1: TAny, src2: TAny, num: number) => {
