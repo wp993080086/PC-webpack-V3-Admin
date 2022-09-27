@@ -19,7 +19,7 @@ export const createAxiosExamples = (customConfig?: AxiosRequestConfig): AxiosIns
       const T = getStorage('token')
       if (T) {
         // eslint-disable-next-line
-        ;(config.headers as TAnyObject).common['Authorization'] = `Bearer ${T}`
+        ;(config.headers as TObject).common['Authorization'] = `Bearer ${T}`
       }
       return config
     },

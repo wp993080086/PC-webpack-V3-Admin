@@ -30,7 +30,7 @@ export const sleep = (ms = 500) => {
  * @param {Function} fn 事件
  * @param {Number} limit 触发间隔
  */
-export const throttle = <F extends TAnyFunc>(fn: F, limit = 200): IThrottleFunction<F> => {
+export const throttle = <F extends TFunc>(fn: F, limit = 200): IThrottleFunction<F> => {
   let wait = false
   // eslint-disable-next-line func-names
   return function (this: void, ...args: Parameters<F>) {
@@ -50,7 +50,7 @@ export const throttle = <F extends TAnyFunc>(fn: F, limit = 200): IThrottleFunct
  * @param {Number} wait 触发间隔
  * @param {Number} immediate 是否立即触发一次
  */
-export const debounce = <F extends TAnyFunc>(wait: number, fn: F, immediate = false): IDebounceFunction<F> => {
+export const debounce = <F extends TFunc>(wait: number, fn: F, immediate = false): IDebounceFunction<F> => {
   let timeout: NodeJS.Timeout
   // eslint-disable-next-line func-names
   const debounced = function (this: ThisParameterType<F>, ...args: Parameters<F>) {
@@ -156,7 +156,7 @@ export const deepClone = (sourceValue: TAny) => {
  * @param {Any} data 数据源
  * @param {String} type 存储类型 local || session
  */
-export const setStorage = (key: string, data: string | number | TArray<TAny> | TAnyObject, type: 'session' | 'local' = 'session') => {
+export const setStorage = (key: string, data: string | number | Array<TAny> | TObject, type: 'session' | 'local' = 'session') => {
   const env = process.env.NODE_ENV as string
   if (type === 'session') {
     sessionStorage.setItem(`${key}_${env}`, JSON.stringify(data))

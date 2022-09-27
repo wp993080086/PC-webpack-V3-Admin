@@ -49,13 +49,13 @@ const changeW = () => {
 const isShowHeader = ref(false)
 watch(
   () => router.meta,
-  (newVal: TAnyObject) => {
+  (newVal: TObject) => {
     isShowHeader.value = newVal.showHeader
   }
 )
 // 切换语言
 const nowLang = ref('zhCn')
-const appState = reactive<TDictObject<TAnyObject>>({
+const appState = reactive<TDictObject<TObject>>({
   language: {
     zhCn,
     zhTw,

@@ -7,16 +7,13 @@ declare type TAny = any
 // 泛型对象字典
 declare type TDictObject<T> = { [key: string]: T }
 
-// 泛型数组
-declare type TArray<T> = Array<T>
-
 // 任意类型对象
-declare type TAnyObject = {
+declare type TObject = {
   [key: string]: TAny
 }
 
 // 任意函数
-declare type TAnyFunc = (...args: TAny[]) => TAny
+declare type TFunc<T = TAny> = (...args: T[]) => T
 
 declare module '*.vue' {
   import { DefineComponent } from 'vue'

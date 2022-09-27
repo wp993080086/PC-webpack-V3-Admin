@@ -9,10 +9,9 @@ module.exports = {
   },
   globals: {
     TAny: true,
-    TArray: true,
-    TAnyFunc: true,
+    TFunc: true,
     TDictObject: true,
-    TAnyObject: true
+    TObject: true
   },
   extends: ['plugin:vue/vue3-essential', 'airbnb-base', '@vue/typescript/recommended'],
   parserOptions: {
