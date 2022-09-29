@@ -156,7 +156,7 @@ export const deepClone = (sourceValue: TAny) => {
  * @param {Any} data 数据源
  * @param {String} type 存储类型 local || session
  */
-export const setStorage = (key: string, data: string | number | Array<TAny> | TObject, type: 'session' | 'local' = 'session') => {
+export const setStorage = (key: string, data: string | number | Array<TAny> | TDict, type: 'session' | 'local' = 'session') => {
   const env = process.env.NODE_ENV as string
   if (type === 'session') {
     sessionStorage.setItem(`${key}_${env}`, JSON.stringify(data))

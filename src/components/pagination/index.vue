@@ -16,8 +16,8 @@
 import { defineComponent, reactive, toRefs } from 'vue'
 
 type TOption = {
-  server: (param: TObject) => TAny
-  params?: TObject
+  server: (param: TDict) => TAny
+  params?: TDict
 }
 
 interface IPropList {
@@ -32,7 +32,7 @@ export default defineComponent({
     options: {
       default: () => ({
         server: () => false,
-        params: {} as TObject
+        params: {} as TDict
       })
     },
     isLoading: { default: false },
@@ -51,7 +51,7 @@ export default defineComponent({
           ...props.options.params,
           pageNo: data.pageOption.pageNo,
           recordsPerPage: data.pageOption.recordsPerPage
-        } as TObject
+        } as TDict
         if (props.orderType !== 0) param.orderType = props.orderType
         const res = await props.options.server(param)
         data.pageOption.total = res.data.total || 0

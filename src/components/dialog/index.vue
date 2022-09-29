@@ -34,7 +34,6 @@
 
 <script lang="ts">
 import { defineComponent, ref, PropType, onMounted, watch, reactive } from 'vue'
-import { TDialogButtonOption } from '@/types/common'
 
 export default defineComponent({
   name: 'dialogComponent',

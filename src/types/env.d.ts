@@ -4,12 +4,9 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare type TAny = any
 
-// 泛型对象字典
-declare type TDictObject<T> = { [key: string]: T }
-
 // 任意类型对象
-declare type TObject = {
-  [key: string]: TAny
+declare type TDict<T = TAny> = {
+  [key: string]: T
 }
 
 // 任意函数
@@ -23,6 +20,6 @@ declare module '*.vue' {
 }
 
 declare module '*.module.scss' {
-  const classes: { [key: string]: string }
+  const classes: TDict<string>
   export default classes
 }

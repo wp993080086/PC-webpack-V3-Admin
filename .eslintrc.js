@@ -10,8 +10,13 @@ module.exports = {
   globals: {
     TAny: true,
     TFunc: true,
-    TDictObject: true,
-    TObject: true
+    TDict: true,
+    TDialogButtonOption: true,
+    THttpResponse: true,
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
+    withDefaults: 'readonly'
   },
   extends: ['plugin:vue/vue3-essential', 'airbnb-base', '@vue/typescript/recommended'],
   parserOptions: {

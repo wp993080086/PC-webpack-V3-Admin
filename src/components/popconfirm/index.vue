@@ -1,20 +1,20 @@
 <template>
   <template v-if="type === 'tips'">
-    <el-popover v-bind="$attrs" popper-class="sagi_tips">
+    <el-popover v-bind="$attrs" popper-class="pdd_tips">
       <template #reference>
         <slot name="node" />
       </template>
     </el-popover>
   </template>
   <template v-else>
-    <el-popover v-bind="$attrs" :visible="interiorShow" popper-class="sagi_popconfirm">
+    <el-popover v-bind="$attrs" :visible="interiorShow" popper-class="pdd_popconfirm">
       <template #default>
         <el-scrollbar :height="height">
           <slot />
         </el-scrollbar>
         <template v-if="footer">
           <slot name="footer" v-if="$slots.footer" />
-          <div class="sagi_popconfirm_footer" v-else>
+          <div class="pdd_popconfirm_footer" v-else>
             <el-button size="small" @click="handleCancel">{{ cancelText }}</el-button>
             <el-button size="small" type="primary" @click="handleConfirm" v-loading="interiorLoading">
               {{ confirmText }}
@@ -118,8 +118,8 @@ export default defineComponent({
 })
 </script>
 <style lang="scss">
-.sagi_popconfirm {
-  .sagi_popconfirm_footer {
+.pdd_popconfirm {
+  .pdd_popconfirm_footer {
     display: flex;
     align-items: end;
     justify-content: end;

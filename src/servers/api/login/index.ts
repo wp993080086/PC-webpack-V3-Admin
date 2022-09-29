@@ -7,7 +7,7 @@ export default {
    * 登录
    * @param {String} key 要取消的接口名
    */
-  login(data: TObject) {
+  login(data: TDict) {
     console.log(data)
     return R.post('/api/v1/system/login', { ...data })
   },

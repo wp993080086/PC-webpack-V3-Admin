@@ -1,7 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Toast, Alert } from '@/utils/toast'
 import { getStorage, deleteStorage } from '@/utils'
-import { THttpResponse } from '@/servers/servers'
 import { httpCode } from '@/config'
 
 export const createAxiosExamples = (customConfig?: AxiosRequestConfig): AxiosInstance => {
@@ -19,7 +18,7 @@ export const createAxiosExamples = (customConfig?: AxiosRequestConfig): AxiosIns
       const T = getStorage('token')
       if (T) {
         // eslint-disable-next-line
-        ;(config.headers as TObject).common['Authorization'] = `Bearer ${T}`
+        ;(config.headers as TDict).common['Authorization'] = `Bearer ${T}`
       }
       return config
     },
@@ -31,7 +30,7 @@ export const createAxiosExamples = (customConfig?: AxiosRequestConfig): AxiosIns
   // 响应拦截器
   instance.interceptors.response.use(
     // 成功
-    (response: AxiosResponse<THttpResponse>) => {
+    (response: AxiosResponse<TDict, THttpResponse>) => {
       const res = response.data
       const { code } = response.data
       if (code === 401) {

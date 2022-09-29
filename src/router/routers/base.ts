@@ -9,7 +9,7 @@ export default [
   {
     path: '/:pathMatch(.*)*',
     name: 'notFound',
-    component: () => import(/* webpackChunkName: 'not-found' */ '@/pages/base/not-found/index'),
+    component: () => import(/* webpackChunkName: 'not-found' */ '@/views/base/not-found/index'),
     meta: {
       title: 'notFound',
       showHeader: false
