@@ -5,10 +5,8 @@ import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
-import './static/styles/reset.css'
-import './static/styles/common.scss'
-import './themes/element-reset.scss'
-import './themes/animation.scss'
+import '@/static/styles/index.scss'
+import './mock/index.ts'
 
 const app = createApp(App)
 app.use(router)

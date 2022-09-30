@@ -1,3 +1,9 @@
+/**
+ * 雪花
+ * @param  {domID} box 容器ID
+ * @param {string} src1 雪花图片路径1
+ * @param {string} src2 雪花图片路径2
+ */
 class CreateSnow {
   private snowBox
 

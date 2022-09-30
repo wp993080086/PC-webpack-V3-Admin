@@ -7,13 +7,13 @@
           <img src="../../../static/images/pdd.png" />
         </div>
         <div class="form_box">
-          <el-form ref="loginFormRef" label-position="top" :rules="loginState.rules" :model="loginState.info">
-            <el-form-item prop="phone">
-              <el-input v-model="loginState.info.phone" placeholder="账号" clearable @focus="handleChangePanda(1)" />
+          <el-form ref="loginFormRef" label-position="top" :rules="loginState.rules" :model="loginState.account">
+            <el-form-item prop="mobile">
+              <el-input v-model="loginState.account.mobile" placeholder="账号" clearable @focus="handleChangePanda(1)" />
             </el-form-item>
             <el-form-item prop="pwd">
               <el-input
-                v-model="loginState.info.password"
+                v-model="loginState.account.password"
                 placeholder="密码"
                 clearable
                 show-password
@@ -29,6 +29,10 @@
           </el-form>
         </div>
         <div class="footer_btn">
+          <el-tooltip effect="light" placement="top">
+            <template #content> 账号：admin<br />密码：123456 </template>
+            <el-icon><QuestionFilled /></el-icon>
+          </el-tooltip>
           <span class="sign_in_text" @click="toSignin">去注册</span>
         </div>
       </div>
@@ -39,6 +43,7 @@
 import { reactive, onMounted, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElForm } from 'element-plus'
+import { QuestionFilled } from '@element-plus/icons-vue'
 import CreateSnow from '@/utils/snowflake'
 import panda1 from '@/static/images/login/panda_1.png'
 import panda2 from '@/static/images/login/panda_2.png'
@@ -46,25 +51,19 @@ import panda3 from '@/static/images/login/panda_3.png'
 import snow1 from '@/static/images/login/snow1.png'
 import snow2 from '@/static/images/login/snow2.png'
 import { Toast } from '@/utils/toast'
-import loginHttp from '@/servers/api/login'
+import userHttp from '@/servers/api/login'
 
 const router = useRouter()
 // 登录信息
 const loginFormRef = ref<InstanceType<typeof ElForm>>()
 const loginState = reactive({
-  info: {
-    phone: 'admin',
+  account: {
+    mobile: 'admin',
     password: '123456'
   },
   rules: {
-    phone: [
-      { required: true, message: '请输入账号', trigger: 'blur' },
-      { min: 5, max: 18, message: '长度在 5 到 18 个字符', trigger: 'blur' }
-    ],
-    password: [
-      { required: true, message: '请输入密码', trigger: 'blur' },
-      { min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur' }
-    ]
+    mobile: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
+    password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
   },
   panda: [panda1, panda2, panda3],
   focus: 0,
@@ -81,18 +80,17 @@ const handleChangePanda = (type: number) => {
 const handleLoginSucceed = () => {
   Toast('登录成功，即将跳转', { type: 'success' })
   loginState.loading = false
-  console.log(router)
-  // router.push({
-  //   name: 'home'
-  // })
+  router.push({
+    name: 'home'
+  })
 }
 // 登录
 const handleLogin = async () => {
   loginState.loading = true
   try {
-    const res = await loginHttp.login({
-      userName: loginState.info.phone,
-      password: loginState.info.password
+    const res = await userHttp.login({
+      mobile: loginState.account.mobile,
+      password: loginState.account.password
     })
     console.log(res)
     handleLoginSucceed()

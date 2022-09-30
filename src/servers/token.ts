@@ -2,22 +2,16 @@ const { NODE_ENV } = process.env
 
 const userToken = `token_${NODE_ENV}`
 
-function clearToken() {
+export function clearToken() {
   sessionStorage.removeItem(userToken)
 }
 
 // 获取token
-function getToken() {
+export function getToken() {
   return sessionStorage.getItem(userToken) || ''
 }
 
 // 设置token
-function setToken(utoken: string) {
+export function setToken(utoken: string) {
   sessionStorage.setItem(userToken, utoken)
-}
-
-export default {
-  getToken,
-  setToken,
-  clearToken
 }

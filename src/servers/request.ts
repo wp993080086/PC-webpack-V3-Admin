@@ -1,11 +1,11 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Toast, Alert } from '@/utils/toast'
-import { getStorage, deleteStorage } from '@/utils'
-import { httpCode } from '@/config'
+import { deleteStorage } from '@/utils'
+import { httpCode, errorCode } from '@/config'
+import { getToken } from './token'
 
 export const createAxiosExamples = (customConfig?: AxiosRequestConfig): AxiosInstance => {
   const instance = axios.create({
-    baseURL: process.env.VUE_APP_URL,
     timeout: 1000 * 30, // 超时
     withCredentials: true, // 跨域携带cookie
     headers: { 'Content-Type': 'application/json' }, // 请求头
@@ -15,11 +15,8 @@ export const createAxiosExamples = (customConfig?: AxiosRequestConfig): AxiosIns
   // 请求拦截器
   instance.interceptors.request.use(
     config => {
-      const T = getStorage('token')
-      if (T) {
-        // eslint-disable-next-line
-        ;(config.headers as TDict).common['Authorization'] = `Bearer ${T}`
-      }
+      const token = getToken()
+      if (token) (config.headers as TDict).token = token
       return config
     },
     error => {
@@ -33,16 +30,16 @@ export const createAxiosExamples = (customConfig?: AxiosRequestConfig): AxiosIns
     (response: AxiosResponse<TDict, THttpResponse>) => {
       const res = response.data
       const { code } = response.data
-      if (code === 401) {
+      if (code === errorCode.EXPIRE) {
         Alert('登录状态已过期，请重新登录', { confirmButtonText: '确定' })
           .then(() => {
             deleteStorage('all') // 清除浏览器全部临时缓存
             window.location.href = '/' // 去登录页
           })
           .catch(() => false)
-      } else if (code !== 0) {
+      } else if (code !== errorCode.SUCCESS) {
         Toast(res.message, { type: 'error' })
-        return Promise.reject(new Error(res.message))
+        return Promise.reject(response)
       }
       return res
     },

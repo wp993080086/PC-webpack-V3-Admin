@@ -18,7 +18,7 @@ export default [
   {
     path: baseRouter.LOGIN,
     name: 'login',
-    component: () => import(/* webpackChunkName: 'login' */ '@/pages/base/login/index.vue'),
+    component: () => import(/* webpackChunkName: 'login' */ '@/views/base/login/index.vue'),
     meta: {
       title: '登录',
       showHeader: false
@@ -27,7 +27,7 @@ export default [
   {
     path: '/demo',
     name: 'demo',
-    component: () => import(/* webpackChunkName: 'demo' */ '@/pages/demo/index.vue'),
+    component: () => import(/* webpackChunkName: 'demo' */ '@/views/demo/index.vue'),
     meta: {
       title: '示例',
       showHeader: true
@@ -36,7 +36,7 @@ export default [
   {
     path: '/home',
     name: 'home',
-    component: () => import(/* webpackChunkName: 'home' */ '@/pages/home/index.vue'),
+    component: () => import(/* webpackChunkName: 'home' */ '@/views/home/index.vue'),
     meta: {
       title: '首页',
       showHeader: true
