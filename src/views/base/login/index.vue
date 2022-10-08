@@ -29,10 +29,6 @@
           </el-form>
         </div>
         <div class="footer_btn">
-          <el-tooltip effect="light" placement="top">
-            <template #content> 账号：admin<br />密码：123456 </template>
-            <el-icon><QuestionFilled /></el-icon>
-          </el-tooltip>
           <span class="sign_in_text" @click="toSignin">去注册</span>
         </div>
       </div>
@@ -43,7 +39,6 @@
 import { reactive, onMounted, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElForm } from 'element-plus'
-import { QuestionFilled } from '@element-plus/icons-vue'
 import CreateSnow from '@/utils/snowflake'
 import panda1 from '@/static/images/login/panda_1.png'
 import panda2 from '@/static/images/login/panda_2.png'
@@ -51,6 +46,7 @@ import panda3 from '@/static/images/login/panda_3.png'
 import snow1 from '@/static/images/login/snow1.png'
 import snow2 from '@/static/images/login/snow2.png'
 import { Toast } from '@/utils/toast'
+import { sleep } from '@/utils'
 import userHttp from '@/servers/api/login'
 
 const router = useRouter()
@@ -77,8 +73,9 @@ const handleChangePanda = (type: number) => {
   loginState.focus = type
 }
 // 登录成功
-const handleLoginSucceed = () => {
-  Toast('登录成功，即将跳转', { type: 'success' })
+const handleLoginSucceed = async () => {
+  Toast('登录成功！', { type: 'success' })
+  await sleep(1000)
   loginState.loading = false
   router.push({
     name: 'home'
