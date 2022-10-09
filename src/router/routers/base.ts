@@ -11,7 +11,7 @@ export default [
     name: 'notFound',
     component: () => import(/* webpackChunkName: 'not-found' */ '@/views/base/not-found/index'),
     meta: {
-      title: 'notFound',
+      title: 'message.router.notFound',
       showHeader: false
     }
   },
@@ -20,7 +20,7 @@ export default [
     name: 'login',
     component: () => import(/* webpackChunkName: 'login' */ '@/views/base/login/index.vue'),
     meta: {
-      title: '登录',
+      title: 'message.router.login',
       showHeader: false
     }
   },
@@ -29,7 +29,7 @@ export default [
     name: 'demo',
     component: () => import(/* webpackChunkName: 'demo' */ '@/views/demo/index.vue'),
     meta: {
-      title: '示例',
+      title: 'message.router.demo',
       showHeader: true
     }
   },
@@ -38,7 +38,7 @@ export default [
     name: 'home',
     component: () => import(/* webpackChunkName: 'home' */ '@/views/home/index.vue'),
     meta: {
-      title: '首页',
+      title: 'message.router.home',
       showHeader: true
     }
   }

@@ -39,6 +39,19 @@ module.exports = {
       args[0].cdn = env === 'dev' ? {} : CDN
       return args
     })
+    // 设置svg
+    config.module.rule('svg').exclude.add(resolve('src/static/icons')).end()
+    config.module
+      .rule('icons')
+      .test(/\.svg$/)
+      .include.add(resolve('src/static/icons'))
+      .end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({
+        symbolId: 'icon-[name]'
+      })
+      .end()
   },
   configureWebpack: {
     devServer: {

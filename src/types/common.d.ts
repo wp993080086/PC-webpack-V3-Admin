@@ -1,4 +1,13 @@
 /**
+ * router meta类型
+ * @param {string} title 页面标题
+ * @param {boolean} showHeader 是否显示页头
+ */
+declare type TRouterMeta = {
+  title: string
+  showHeader: boolean
+}
+/**
  * elementPlus Dialog 按钮配置
  * @param {String} type 按钮风格
  * @param {Boolean} plain 是否朴素按钮

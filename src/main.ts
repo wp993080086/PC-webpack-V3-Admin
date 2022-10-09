@@ -7,8 +7,10 @@ import store from '@/store'
 import { i18n } from '@/i18n/index'
 import '@/static/styles/index.scss'
 import './mock/index.ts'
+import installIcons from '@/static/icons'
 
 const app = createApp(App)
+installIcons(app)
 app.use(router)
 app.use(store)
 app.use(ElementPlus, { locale: { i18n: i18n.global.t } })

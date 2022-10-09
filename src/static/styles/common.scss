@@ -1,3 +1,18 @@
+// flex对齐 'center'：垂直水平对齐，'x'：水平对齐，'y'：垂直对齐 'space-between'：水平左右对齐
+@mixin flex_layout($layout: center) {
+  display: flex;
+  @if ($layout == center) {
+    justify-content: center;
+    align-items: center;
+  } @else if ($layout == space-between) {
+    justify-content: space-between;
+  } @else if ($layout == x) {
+    justify-content: center;
+  } @else {
+    align-items: center;
+  }
+}
+
 // 单行超出省略号
 @mixin omit {
   overflow: hidden;
@@ -15,14 +30,7 @@
   overflow: hidden;
 }
 
-// 水平垂直居中
-@mixin flex_center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-// 设置宽高 默认100%
+// 设置宽高 'auto' || 'fill' || number 
 @mixin set_w_h($w: fill, $h: fill) {
   @if ($w == fill) {
     width: 100%;
@@ -48,7 +56,7 @@
   }
 }
 
-// 悬浮阴影
+// 悬浮阴影 time: 时间 color：颜色
 @mixin box_shadow($time : 0.5, $color: #cccccc) {
   transition: ease $time + s;
   &:hover {

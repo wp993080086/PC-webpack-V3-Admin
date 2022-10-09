@@ -13,6 +13,7 @@ module.exports = {
     TDict: true,
     TDialogButtonOption: true,
     THttpResponse: true,
+    TRouterMeta: true,
     defineProps: 'readonly',
     defineEmits: 'readonly',
     defineExpose: 'readonly',
