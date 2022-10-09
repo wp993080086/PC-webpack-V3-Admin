@@ -1,12 +1,12 @@
 import { createStore } from 'vuex'
 
-import userInfo from './module/user-info'
-import navList from './module/nav-list'
+import userState from './module/user'
+import menuState from './module/menu'
 
 const store = createStore({
   modules: {
-    userInfo,
-    navList
+    userState,
+    menuState
   }
 })
 

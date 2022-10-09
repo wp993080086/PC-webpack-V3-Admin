@@ -13,10 +13,4 @@ interface IMenu {
   children?: Array<IChildren>
 }
 
-interface IPaths {
-  name: string
-  url: string
-  query: Dict
-}
-
-export { IChildren, IMenu, IPaths }
+export { IChildren, IMenu }

@@ -1,7 +1,7 @@
 import { Module } from 'vuex'
 import { IUserState, TUser, TDetails } from './user'
 
-const LoginStore: Module<IUserState, Record<string, unknown>> = {
+const userState: Module<IUserState, Record<string, unknown>> = {
   namespaced: true,
   state: {
     userInfo: {},
@@ -25,4 +25,4 @@ const LoginStore: Module<IUserState, Record<string, unknown>> = {
   }
 }
 
-export default LoginStore
+export default userState
