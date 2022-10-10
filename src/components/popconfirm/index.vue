@@ -9,9 +9,9 @@
   <template v-else>
     <el-popover v-bind="$attrs" :visible="interiorShow" popper-class="pdd_popconfirm">
       <template #default>
-        <el-scrollbar :height="height">
-          <slot />
-        </el-scrollbar>
+        <div class="pdd_popconfirm_header" v-if="title">{{ title }}</div>
+        <el-scrollbar :max-height="height"><slot /></el-scrollbar>
+        <slot name="fixed" v-if="$slots.fixed" />
         <template v-if="footer">
           <slot name="footer" v-if="$slots.footer" />
           <div class="pdd_popconfirm_footer" v-else>
@@ -33,7 +33,7 @@
 import { defineComponent, ref, watch } from 'vue'
 
 export default defineComponent({
-  name: 'sagiPopconfirm',
+  name: 'pddPopconfirm',
   inheritAttrs: false,
   emits: ['update:show', 'cancel', 'confirm'],
   props: {
@@ -49,12 +49,15 @@ export default defineComponent({
       type: String,
       default: '确定'
     },
+    title: {
+      type: String
+    },
     footer: {
       type: Boolean,
       default: true
     },
     height: {
-      type: String
+      type: Number
     },
     type: {
       type: String,
@@ -119,6 +122,13 @@ export default defineComponent({
 </script>
 <style lang="scss">
 .pdd_popconfirm {
+  .pdd_popconfirm_header {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 30px;
+  }
+
   .pdd_popconfirm_footer {
     display: flex;
     align-items: end;
