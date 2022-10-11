@@ -19,10 +19,10 @@
     "axios": "^0.27.2",
     "crypto-js": "^4.1.1",
     "element-plus": "^2.2.9",
+    "pinia": "^2.0.23",
     "vue": "^3.2.39",
     "vue-i18n": "^9.2.2",
-    "vue-router": "^4.1.5",
-    "vuex": "^4.0.2"
+    "vue-router": "^4.1.5"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",

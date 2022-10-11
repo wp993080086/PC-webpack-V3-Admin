@@ -1,13 +1,19 @@
-import { createStore } from 'vuex'
+import { menuModule } from '@/store/modules/menu'
+import { userModule } from '@/store/modules/user'
 
-import userState from './module/user'
-import menuState from './module/menu'
+interface IAppStore {
+  userModule: ReturnType<typeof userModule>
+  menuModule: ReturnType<typeof menuModule>
+}
 
-const store = createStore({
-  modules: {
-    userState,
-    menuState
-  }
-})
+const appStore = {} as IAppStore
 
-export default store
+/**
+ * 注册store状态库
+ */
+export const registerStore = () => {
+  appStore.userModule = userModule()
+  appStore.menuModule = menuModule()
+}
+
+export default appStore

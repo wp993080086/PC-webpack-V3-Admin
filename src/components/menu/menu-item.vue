@@ -1,32 +1,38 @@
 <template>
   <template v-if="menuList.children && menuList.children.length > 0">
-    <el-sub-menu :index="menuList.index">
+    <el-sub-menu :index="menuList.path">
       <template #title>
-        <span>{{ menuList.title }}</span>
+        <svg-icon :name="menuList.icon" />
+        <span class="menu_title">{{ menuList.title }}</span>
       </template>
-      <template v-for="item in menuList.children" :key="item.index">
-        <menu-item :menu="item"></menu-item>
+      <template v-for="menuItem of menuList.children" :key="menuItem.path">
+        <menu-item :list="menuItem"></menu-item>
       </template>
     </el-sub-menu>
   </template>
   <template v-else>
-    <el-menu-item :index="menuList.index">{{ menuList.title }}</el-menu-item>
+    <el-menu-item :index="menuList.path">
+      <svg-icon :name="menuList.icon" />
+      <span class="menu_title">{{ menuList.title }}</span>
+    </el-menu-item>
   </template>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { IMenuList } from '@/store/modules/menu/menu'
 
 const props = defineProps({
-  menu: {
-    type: Object || Array,
+  list: {
+    type: Object,
     default: () => ({})
   }
 })
 
 const menuList = computed(() => {
-  return props.menu
+  return props.list as IMenuList
 })
+console.log(props.list)
 </script>
 
 <style lang="scss" scoped>
@@ -35,5 +41,8 @@ const menuList = computed(() => {
   &:hover {
     background-color: #f6f8f9 !important;
   }
+}
+.menu_title {
+  margin-left: 10px;
 }
 </style>

@@ -22,7 +22,7 @@
   }
 }
 .ball_left-enter-active{
-  animation: lightSpeedInLeft 0.5s;
+  animation: lightSpeedInLeft 0.3s;
   animation-timing-function: ease-out;
 }
 /**
@@ -48,7 +48,7 @@
   }
 }
 .ball_right-enter-active {
-  animation: lightSpeedInRight 0.5s;
+  animation: lightSpeedInRight 0.3s;
   animation-timing-function: ease-out;
 }
 /**
@@ -65,7 +65,7 @@
   }
 }
 .slide_left-enter-active {
-  animation: slideInLeft 0.5s;
+  animation: slideInLeft 0.3s;
   animation-timing-function: ease-out;
 }
 /**
@@ -82,7 +82,7 @@
   }
 }
 .slide_right-enter-active {
-  animation: slideInRight 0.5s;
+  animation: slideInRight 0.3s;
   animation-timing-function: ease-out;
 }
 /**
@@ -114,7 +114,7 @@
   }
 }
 .flip_x-enter-active {
-  animation: flipInX 0.5s;
+  animation: flipInX 0.3s;
   animation-timing-function: ease-out;
 }
 /**
@@ -146,7 +146,7 @@
   }
 }
 .flip_y-enter-active {
-  animation: flipInY 0.5s;
+  animation: flipInY 0.3s;
   animation-timing-function: ease-out;
 }
 /**
@@ -175,7 +175,7 @@
   }
 }
 .fade_enter-enter-active {
-  animation: fadeTo 0.5s;
+  animation: fadeTo 0.3s;
   animation-timing-function: ease-out;
 }
 /**
@@ -204,7 +204,7 @@
   }
 }
 .fade_leave-enter-active {
-  animation: fadeFrom 0.5s;
+  animation: fadeFrom 0.3s;
   animation-timing-function: ease-out;
 }
 /**
@@ -249,7 +249,7 @@
 }
 
 .bounce_enter-enter-active {
-  animation-duration: 0.5s;
+  animation-duration: 0.3s;
   animation-name: bounceIn;
 }
 /**
@@ -267,5 +267,6 @@
 }
 
 .zoom_enter-enter-active {
+  animation-duration: 0.3s;
   animation-name: zoomIn;
 }

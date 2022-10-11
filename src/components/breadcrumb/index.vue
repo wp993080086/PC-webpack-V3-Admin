@@ -1,5 +1,5 @@
 <template>
-  <div class="breadcrumb_box">
+  <div id="breadcrumb_box">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/' }">{{ $t('message.router.home') }}</el-breadcrumb-item>
       <el-breadcrumb-item>{{ $t(pathName) }}</el-breadcrumb-item>
@@ -25,10 +25,10 @@ watch(
 
 <style lang="scss" scoped>
 @import '@/static/styles/common.scss';
-.breadcrumb_box {
+#breadcrumb_box {
   @include flex_layout(y);
-  max-width: 300px;
-  height: 60px;
-  padding-left: 10px;
+  width: 100%;
+  height: 40px;
+  padding-left: 20px;
 }
 </style>

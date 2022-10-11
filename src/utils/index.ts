@@ -14,7 +14,7 @@ export const validateMobile = (rule: unknown, value: string, callback: (value?: 
 }
 /**
  * 睡眠
- * @param  {Number} ms 睡眠时间
+ * @param {Number} ms 睡眠时间
  * @return {Promise} Promise
  */
 export const sleep = (ms = 500) => {

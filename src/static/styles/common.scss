@@ -49,16 +49,16 @@
 }
 
 // 悬浮变化
-@mixin cursor_hand {
+@mixin cursor_hover {
   cursor: pointer;
   &:hover {
     opacity: 0.9;
   }
 }
 
-// 悬浮阴影 time: 时间 color：颜色
-@mixin box_shadow($time : 0.5, $color: #cccccc) {
-  transition: ease $time + s;
+// 悬浮阴影 $color：颜色
+@mixin box_shadow($color: #cccccc) {
+  transition: ease var(--pdd-transition-duration);
   &:hover {
     box-shadow: 0 0 10px $color;
   }

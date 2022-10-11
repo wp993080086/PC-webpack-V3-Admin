@@ -10,16 +10,19 @@
         </div>
         <div id="main_right">
           <pdd-header />
-          <div id="container">
-            <el-scrollbar>
-              <router-view v-slot="{ Component }">
-                <Transition name="fade_enter" mode="out-in">
-                  <keep-alive :include="keepAliveNameList">
-                    <component :is="Component" :key="refreshRouterViewKey" />
-                  </keep-alive>
-                </Transition>
-              </router-view>
-            </el-scrollbar>
+          <div id="content_box">
+            <pdd-breadcrumb />
+            <div id="view_box">
+              <el-scrollbar>
+                <router-view v-slot="{ Component }">
+                  <Transition name="zoom_enter" mode="out-in">
+                    <keep-alive :include="keepAliveNameList">
+                      <component :is="Component" :key="refreshRouterViewKey" />
+                    </keep-alive>
+                  </Transition>
+                </router-view>
+              </el-scrollbar>
+            </div>
           </div>
         </div>
       </div>
@@ -32,22 +35,24 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { storeToRefs } from 'pinia'
 import { ElConfigProvider } from 'element-plus'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import zhTw from 'element-plus/lib/locale/lang/zh-tw'
 import en from 'element-plus/lib/locale/lang/en'
 import pddHeader from '@/components/header/index.vue'
 import ppdMenu from '@/components/menu/index.vue'
+import pddBreadcrumb from '@/components/breadcrumb/index.vue'
+import appStore from '@/store'
 
 const router = useRoute()
+const { isCollapse } = storeToRefs(appStore.menuModule)
 // 切换侧边栏宽度
-const menuW = ref('210px')
-// const changeW = () => {
-//   const w = menuW.value
-//   w === '120px' ? (menuW.value = '60px') : (menuW.value = '120px')
-// }
+const menuW = computed(() => {
+  return isCollapse.value ? '64px' : '210px'
+})
 // 是否显示头部导航栏
 const isShowHeader = ref(false)
 watch(
@@ -74,22 +79,26 @@ const keepAliveNameList = ref([])
   display: flex;
   width: 100%;
   height: 100%;
-  background-color: #f9f9f9;
+  background-color: var(--pdd-bg-color);
 
   #main_left {
     width: v-bind(menuW);
     height: 100%;
-    transition: ease 0.5s;
-    border-right: 1px solid #cccccc;
+    transition: ease var(--pdd-transition-duration);
+    background-color: #545c64;
   }
 
   #main_right {
     flex: 1;
     height: 100%;
 
-    #container {
+    #content_box {
       width: 100%;
       height: calc(100% - 60px);
+      #view_box {
+        width: 100%;
+        height: calc(100% - 40px);
+      }
     }
   }
 }

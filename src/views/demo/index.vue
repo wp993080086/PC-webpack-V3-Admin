@@ -1,7 +1,9 @@
 <template>
-  <div class="demo_box">
-    <span @click="to">{{ publicKey }}</span>
-  </div>
+  <pdd-box>
+    <div class="demo_box">
+      <span @click="to">{{ publicKey }}</span>
+    </div>
+  </pdd-box>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
