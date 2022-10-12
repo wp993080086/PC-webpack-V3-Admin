@@ -1,10 +1,8 @@
 import { createI18n } from 'vue-i18n'
 import zhcnLocale from 'element-plus/lib/locale/lang/zh-cn'
 import enLocale from 'element-plus/lib/locale/lang/en'
-import zhtwLocale from 'element-plus/lib/locale/lang/zh-tw'
 import nextZhcn from '@/i18n/common/zh-cn'
 import nextEn from '@/i18n/common/en'
-import nextZhtw from '@/i18n/common/zh-tw'
 
 // 定义语言国际化内容
 /**
@@ -23,12 +21,6 @@ const messages = {
     ...enLocale,
     message: {
       ...nextEn
-    }
-  },
-  [zhtwLocale.name]: {
-    ...zhtwLocale,
-    message: {
-      ...nextZhtw
     }
   }
 }

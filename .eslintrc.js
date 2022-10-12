@@ -93,6 +93,7 @@ module.exports = {
         before: true,
         after: true,
       },
-    ]
+    ],
+    '@typescript-eslint/no-non-null-assertion': 0 // 关闭非空断言检查
   }
 }

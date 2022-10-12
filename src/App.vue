@@ -37,10 +37,8 @@
 <script lang="ts" setup>
 import { ref, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { storeToRefs } from 'pinia'
 import { ElConfigProvider } from 'element-plus'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-import zhTw from 'element-plus/lib/locale/lang/zh-tw'
 import en from 'element-plus/lib/locale/lang/en'
 import pddHeader from '@/components/header/index.vue'
 import ppdMenu from '@/components/menu/index.vue'
@@ -48,7 +46,8 @@ import pddBreadcrumb from '@/components/breadcrumb/index.vue'
 import appStore from '@/store'
 
 const router = useRoute()
-const { isCollapse } = storeToRefs(appStore.menuModule)
+const { getIsCollapse } = appStore.userModule
+const isCollapse = computed(() => getIsCollapse())
 // 切换侧边栏宽度
 const menuW = computed(() => {
   return isCollapse.value ? '64px' : '210px'
@@ -62,11 +61,7 @@ watch(
   }
 )
 // 切换语言
-const lang = {
-  zhCn,
-  zhTw,
-  en
-}
+const lang = { zhCn, en }
 const i18nLocal = ref(lang.zhCn)
 
 // keep-alive

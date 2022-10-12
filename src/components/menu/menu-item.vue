@@ -32,15 +32,11 @@ const props = defineProps({
 const menuList = computed(() => {
   return props.list as IMenuList
 })
-console.log(props.list)
 </script>
 
 <style lang="scss" scoped>
-.el-menu-item,
 .is-active {
-  &:hover {
-    background-color: #f6f8f9 !important;
-  }
+  background-color: #434a50 !important;
 }
 .menu_title {
   margin-left: 10px;

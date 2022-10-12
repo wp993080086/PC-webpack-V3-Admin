@@ -8,8 +8,8 @@
         </div>
         <div class="form_box">
           <el-form ref="loginFormRef" label-position="top" :rules="loginState.rules" :model="loginState.account">
-            <el-form-item prop="mobile">
-              <el-input v-model="loginState.account.mobile" placeholder="账号" clearable @focus="handleChangePanda(1)" />
+            <el-form-item prop="userName">
+              <el-input v-model="loginState.account.userName" placeholder="账号" clearable @focus="handleChangePanda(1)" />
             </el-form-item>
             <el-form-item prop="pwd">
               <el-input
@@ -39,33 +39,31 @@
 import { reactive, onMounted, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElForm } from 'element-plus'
+import appStore from '@/store'
 import CreateSnow from '@/utils/snowflake'
 import panda1 from '@/static/images/login/panda_1.png'
 import panda2 from '@/static/images/login/panda_2.png'
 import panda3 from '@/static/images/login/panda_3.png'
 import snow1 from '@/static/images/login/snow1.png'
 import snow2 from '@/static/images/login/snow2.png'
+import userHttp from '@/servers/api/user'
 import { Toast } from '@/utils/toast'
-import { sleep } from '@/utils'
-import userHttp from '@/servers/api/login'
 
 const router = useRouter()
+const { setUserInfo, setRouteMenuList } = appStore.userModule
 // 登录信息
 const loginFormRef = ref<InstanceType<typeof ElForm>>()
 const loginState = reactive({
   account: {
-    mobile: 'admin',
+    userName: 'admin',
     password: '123456'
   },
   rules: {
-    mobile: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
+    userName: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
     password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
   },
   panda: [panda1, panda2, panda3],
   focus: 0,
-  cookie: '',
-  token: '',
-  userMsg: '', // 用户信息
   loading: false
 })
 // 修改熊猫
@@ -75,7 +73,6 @@ const handleChangePanda = (type: number) => {
 // 登录成功
 const handleLoginSucceed = async () => {
   Toast('登录成功！', { type: 'success' })
-  await sleep(1000)
   loginState.loading = false
   router.push({
     name: 'home'
@@ -85,11 +82,14 @@ const handleLoginSucceed = async () => {
 const handleLogin = async () => {
   loginState.loading = true
   try {
-    const res = await userHttp.login({
-      mobile: loginState.account.mobile,
+    const userRes = await userHttp.login({
+      userName: loginState.account.userName,
       password: loginState.account.password
     })
-    console.log(res)
+    setUserInfo(userRes.data)
+    const { userId } = userRes.data.userInfo
+    const routeRes = await userHttp.getRouteMenuList({ userId })
+    setRouteMenuList(routeRes.data)
     handleLoginSucceed()
   } catch (error) {
     loginState.loading = false

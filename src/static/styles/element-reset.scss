@@ -1,1 +1,10 @@
-// ----------- element-plus 样式覆盖 --------
+/* NavMenu 导航菜单
+------------------------------- */
+// 默认样式修改
+.el-menu {
+	border-right: none !important;
+}
+// 鼠标 hover 时颜色
+.el-menu-hover-bg-color {
+	background-color: var(--next-color-menu-hover) !important;
+}

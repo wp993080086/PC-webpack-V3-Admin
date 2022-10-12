@@ -1,34 +1,73 @@
 import { reactive, toRefs } from 'vue'
 import { defineStore } from 'pinia'
-import { IuserInfo } from './user'
+import { IuserInfo, IMenuList, IUserStore } from './user'
+import { setStorage, getStorage } from '@/utils'
 
 // 使用setup模式定义
 export const userModule = defineStore('user', () => {
-  const data = reactive({
-    name: 'user',
-    userInfo: {
-      userName: '卡卡罗特',
-      userId: '100'
-    }
+  const dataStore = reactive<IUserStore>({
+    userInfo: {},
+    isCollapse: false,
+    routeMenuList: []
   })
   /**
    * 获取用户信息
    * @return {object} userInfo
    */
   const getUserInfo = () => {
-    return data.userInfo
+    const localUserInfo = getStorage<IuserInfo>('userInfo')
+    if (localUserInfo && localUserInfo.token) dataStore.userInfo = localUserInfo
+    return dataStore.userInfo
   }
   /**
    * 设置用户信息
    * @param {object} obj 用户信息
    */
   const setUserInfo = (obj: IuserInfo) => {
-    data.userInfo = obj
+    dataStore.userInfo = obj
+    setStorage('userInfo', dataStore.userInfo)
   }
-
+  /**
+   * 获取路由菜单
+   * @return {object} userInfo
+   */
+  const getRouteMenuList = () => {
+    const localRouteMenuList = getStorage<Array<IMenuList>>('routeMenuList')
+    if (localRouteMenuList && localRouteMenuList.length > 0) dataStore.routeMenuList = localRouteMenuList
+    return dataStore.routeMenuList
+  }
+  /**
+   * 设置路由菜单
+   * @return {object} userInfo
+   */
+  const setRouteMenuList = (data: Array<IMenuList>) => {
+    dataStore.routeMenuList = data
+    setStorage('routeMenuList', dataStore.routeMenuList)
+  }
+  /**
+   * 获取菜单收缩状态
+   * @return {boolean} isCollapse
+   */
+  const getIsCollapse = () => {
+    const localIsCollapse = getStorage<typeof dataStore.isCollapse>('isCollapse')
+    if (localIsCollapse !== null) dataStore.isCollapse = localIsCollapse
+    return dataStore.isCollapse
+  }
+  /**
+   * 设置菜单收缩状态
+   * @return {void} void
+   */
+  const setIsCollapse = () => {
+    dataStore.isCollapse = !dataStore.isCollapse
+    setStorage('isCollapse', dataStore.isCollapse)
+  }
   return {
-    ...toRefs(data),
+    ...toRefs(dataStore),
     getUserInfo,
-    setUserInfo
+    setUserInfo,
+    getRouteMenuList,
+    setRouteMenuList,
+    getIsCollapse,
+    setIsCollapse
   }
 })

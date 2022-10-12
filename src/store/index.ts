@@ -1,9 +1,9 @@
-import { menuModule } from '@/store/modules/menu'
+import { systemModule } from '@/store/modules/system'
 import { userModule } from '@/store/modules/user'
 
 interface IAppStore {
   userModule: ReturnType<typeof userModule>
-  menuModule: ReturnType<typeof menuModule>
+  systemModule: ReturnType<typeof systemModule>
 }
 
 const appStore = {} as IAppStore
@@ -13,7 +13,7 @@ const appStore = {} as IAppStore
  */
 export const registerStore = () => {
   appStore.userModule = userModule()
-  appStore.menuModule = menuModule()
+  appStore.systemModule = systemModule()
 }
 
 export default appStore
